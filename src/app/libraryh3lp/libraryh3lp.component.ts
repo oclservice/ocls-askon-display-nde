@@ -10,13 +10,14 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AssetsPublicPathDirective } from '../services/assets-public-path.directive';
 
 declare var jabber_resources: any;
 
 @Component({
   selector: 'custom-libraryh3lp',
   standalone: true,
-  imports: [CdkDrag, CommonModule],
+  imports: [CdkDrag, CommonModule, AssetsPublicPathDirective],
   templateUrl: './libraryh3lp.component.html',
   styleUrl: './libraryh3lp.component.scss'
 })
@@ -121,6 +122,8 @@ export class Libraryh3lpComponent implements OnInit {
               const resource = jabber_resources[idx];
               this.chatAvailability = resource.show;
               this.chatOnline = (this.chatAvailability === 'available' || this.chatAvailability === 'chat');
+              // for testing
+              //this.chatOnline = true;
             }
           });
         },

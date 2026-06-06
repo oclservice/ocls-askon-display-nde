@@ -60,13 +60,19 @@ button.lh3-chat-button {
   width: auto;
 }
 
+.lh3-tab-icon {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+
 .lh3-chat-label {
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1;
 }
 
-button.lh3-chat-button img {
+button.lh3-chat-button .lh3-presence-dot {
   position: absolute;
   top: 6px;
   right: 8px;
