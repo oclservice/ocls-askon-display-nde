@@ -1,15 +1,16 @@
 .lh3-chat-widget {
   position: fixed;
-  top: 50%;
-  right: 15px;
+  right: 16px;
+  bottom: 0;
   z-index: 1000;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
 }
 
 .lh3-chat-header {
   display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
 }
 
 .lh3-chat-tooltip {
@@ -41,19 +42,34 @@
 }
 
 button.lh3-chat-button {
-  background-color: transparent;
-  border: none;
-  display: block;
-  padding: 0;
+  align-items: center;
+  background-color: var(--sys-primary);
+  border: 1px solid var(--sys-primary);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: var(--sys-on-primary);
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 132px;
+  padding: 8px 14px;
   position: relative;
-  height: 60px;
-  width: 60px;
+  width: auto;
+}
+
+.lh3-chat-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 button.lh3-chat-button img {
   position: absolute;
-  top: 5%;
-  right: 0;
+  top: 6px;
+  right: 8px;
   border: 1px solid white;
   border-radius: 8px;
   height: 10px;
@@ -61,18 +77,24 @@ button.lh3-chat-button img {
 }
 
 button.lh3-chat-button svg {
+  height: 24px;
+  width: 24px;
   fill: var(--sys-primary);
-  padding: 2px 0;
+  padding: 0;
 }
 
 .lh3-chat-frame-wrap {
   background-color: var(--sys-surface);
   border: 1px solid var(--sys-primary);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
   color: var(--sys-on-surface);
-  height: auto;
-  width: auto;
-  max-height: 95vh;
-  max-width: 95vw;
+  margin-bottom: 0;
+  max-height: 75vh;
+  max-width: min(95vw, 420px);
+  min-width: min(95vw, 340px);
+  overflow: hidden;
+  width: min(95vw, 380px);
 }
 
 .lh3-close-chat-bar {
@@ -91,4 +113,25 @@ button.lh3-chat-button svg {
   color: var(--sys-on-primary);
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .lh3-chat-widget {
+    left: 8px;
+    right: 8px;
+  }
+
+  .lh3-chat-header,
+  .lh3-chat-frame-wrap {
+    width: 100%;
+  }
+
+  button.lh3-chat-button {
+    min-width: 120px;
+  }
+
+  .lh3-chat-frame-wrap {
+    min-width: 100%;
+    width: 100%;
+  }
 }

@@ -1,28 +1,19 @@
-<div class="lh3-chat-widget" [style.top]="iconPosition || null">
+<div class="lh3-chat-widget" [style.bottom]="iconPosition || null">
   <header aria-labelled-by="lh3-chat-button" class="lh3-chat-header">
     @if (hoverTooltip) {
       <div class="lh3-chat-tooltip" [innerHTML]="tooltipContent"></div>
       <div class="lh3-chat-tooltip-arrow" aria-label="hidden"></div>
     }
     @if (!showChat) {
-      <button id="lh3-chat-button" class="lh3-chat-button" (click)="toggleChatTab($event)" (mouseover)="mouseOverChatTab()" (mouseout)="mouseOutChatTab()" (touchend)="toggleChatTab($event)" aria-label="Open chat" [ngStyle]="{'height': iconSize || null, 'width': iconSize || null}">
-        <img [src]="presenceDotUrl()" aria-hidden="true" alt="chat availiablity indicator" [hidden]="!showPresence" />
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 60 512 390" [attr.fill]="chatOnline ? (iconOnlineColor || null) : (iconOfflineColor || null)">
-          <g>
-            <g>
-              <g>
-                <path stroke="white" stroke-width="5" d="M266.667,320c52.928,0,96-43.072,96-96v-64c0-52.928-43.072-96-96-96H96 c-52.928,0-96,43.072-96,96v64c0,52.928,43.072,96,96,96h10.667v53.333c0,4.309,2.603,8.213,6.592,9.856 c1.301,0.555,2.709,0.811,4.075,0.811c2.773,0,5.504-1.088,7.552-3.115L185.749,320H266.667z"/>
-                <path stroke="white" stroke-width="5" d="M416,128h-20.288c-3.008,0-5.867,1.28-7.893,3.499l-2.539,2.795 c-2.155,2.368-3.115,5.568-2.645,8.725c0.811,5.547,1.365,11.179,1.365,16.96v64c0,64.704-52.651,117.333-117.333,117.333 h-65.195c-3.008,0-5.867,1.259-7.893,3.477l-5.099,5.611c-2.048,2.261-3.051,5.291-2.709,8.341 c0.341,3.029,1.941,5.781,4.437,7.552C206.528,377.877,225.579,384,245.333,384h80.917l60.885,60.885 c2.027,2.027,4.757,3.115,7.531,3.115c1.365,0,2.773-0.256,4.075-0.811c3.989-1.643,6.592-5.547,6.592-9.856V384H416 c52.928,0,96-43.072,96-96v-64C512,171.072,468.928,128,416,128z"/>
-              </g>
-            </g>
-          </g>
-        </svg>
+      <button id="lh3-chat-button" class="lh3-chat-button" (click)="chatOnline ? toggleChatTab($event) : openOfflineLink($event)" (mouseover)="mouseOverChatTab()" (mouseout)="mouseOutChatTab()" (touchend)="chatOnline ? toggleChatTab($event) : openOfflineLink($event)" [attr.aria-label]="chatOnline ? 'Open chat' : 'Open help link'" [ngStyle]="{'height': iconSize || null, 'background-color': tabColor(), 'border-color': tabColor()}">
+        <span class="lh3-chat-label">{{ chatOnline ? 'Click to chat' : 'Contact us' }}</span>
       </button>
     }
   </header>
   <div class="lh3-chat-frame-wrap" cdkDrag [hidden]="!showChat">
-    <div class="lh3-close-chat-bar">
-      <button type="button" class="lh3-close-chat" (click)="toggleChatTab($event)" (touchend)="toggleChatTab($event)" aria-label="Close chat">&times;</button>
+    <div class="lh3-close-chat-bar" [ngStyle]="{'background-color': tabColor()}">
+      <span class="lh3-chat-label">Click to chat</span>
+      <button type="button" class="lh3-close-chat" [ngStyle]="{'background-color': tabColor()}" (click)="toggleChatTab($event)" (touchend)="toggleChatTab($event)" aria-label="Close chat">&times;</button>
     </div>
     <div class="needs-js"></div>
   </div>

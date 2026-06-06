@@ -13,7 +13,7 @@ sharedMappings.register(
 module.exports = {
   context: path.resolve(__dirname), // Sets the context to the directory where webpack.config.js is
   output: {
-    uniqueName: "NubGames-LibraryH3lp",
+    uniqueName: "customModule",
     publicPath: 'auto',
   },
   optimization: {
@@ -58,10 +58,10 @@ module.exports = {
         library: { type: "module" },
 
         // For remotes (please adjust)
-        name: "NubGames-LibraryH3lp",
+        name: "customModule",
         filename: "remoteEntry.js",
         exposes: {
-            './NubGames-LibraryH3lp': './src/bootstrapNubGames-LibraryH3lp.ts',
+            './custom-module': './src/bootstrap.ts',
         },
 
         // For hosts (please adjust)

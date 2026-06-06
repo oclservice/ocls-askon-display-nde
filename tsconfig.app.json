@@ -5,7 +5,9 @@
     "types": []
   },
   "files": [
-    "src/main.ts"
+    "src/main.ts",
+    "src/bootstrap.ts",
+    "src/bootstrapNubGames-LibraryH3lp.ts"
   ],
   "include": [
     "src/**/*.d.ts"

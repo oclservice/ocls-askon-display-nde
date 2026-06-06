@@ -35,6 +35,7 @@ export class Libraryh3lpComponent implements OnInit {
   snippetId?: string;
 
   // Optional customizations
+  offlineLink?: string;
   iconOfflineColor?: string;
   iconOnlineColor?: string;
   iconPosition?: string;
@@ -49,7 +50,7 @@ export class Libraryh3lpComponent implements OnInit {
     private moduleParams: Partial<Libraryh3lpComponent> | null, // type the injected params
     private zone: NgZone
   ) {
-    console.log('libraryh3lp: constructor');
+    console.log('libraryh3lp (askON): constructor');
   }
 
   setParam<K extends keyof this>(key: K, value: this[K]) {
@@ -67,7 +68,7 @@ export class Libraryh3lpComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('libraryh3lp: ngOnInit');
+    console.log('libraryh3lp (askON): ngOnInit');
 
     // Chat basics
     this.useModuleParameter('server');
@@ -75,12 +76,21 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('snippetId');
 
     // Look & feel customizations
+    this.useModuleParameter('offlineLink');
     this.useModuleParameter('iconOfflineColor');
     this.useModuleParameter('iconOnlineColor');
     this.useModuleParameter('iconPosition');
     this.useModuleParameter('iconSize');
     this.useModuleParameter('showPresence');
     this.useModuleParameter('tooltipContent');
+
+    // Static data for testing
+    this.queueName = "algonquin";
+    this.snippetId = "1555";
+    this.iconOnlineColor = "#D4DF38";
+    this.iconOfflineColor = "#454546";
+    this.server = "ca.libraryh3lp.com";
+    this.offlineLink = "https://library.centennialcollege.ca/help-services/research-help/ask-the-library/";
 
     if (this.queueName) {
       this.checkAvailability();
@@ -131,7 +141,7 @@ export class Libraryh3lpComponent implements OnInit {
   }
 
   @HostListener('document:keydown.escape', ['$event'])
-  handleEscape(event: KeyboardEvent) {
+  handleEscape(event: Event) {
     if (this.showChat && !this.chatOnline) {
       this.toggleChatTab(event);
     }
@@ -161,6 +171,22 @@ export class Libraryh3lpComponent implements OnInit {
   };
   mouseOutChatTab = () => {
     this.hoverTooltip = false;
+    return false;
+  };
+
+  tabColor = () =>
+    this.chatOnline
+      ? (this.iconOnlineColor || 'var(--sys-primary)')
+      : (this.iconOfflineColor || 'var(--sys-primary)');
+
+  openOfflineLink = (event: Event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.offlineLink) {
+      window.open(this.offlineLink, '_blank', 'noopener,noreferrer');
+    }
+
     return false;
   };
 
