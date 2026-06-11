@@ -24,6 +24,7 @@ declare var jabber_resources: any;
 export class Libraryh3lpComponent implements OnInit {
   // Internal recordkeeping
   availabilityIntervalId?: ReturnType<typeof setInterval>;
+  proactiveChatTimeoutId?: ReturnType<typeof setTimeout>;
   chatAvailability = 'unavailable';
   chatOnline = false;
   hoverTooltip = false;
@@ -39,10 +40,11 @@ export class Libraryh3lpComponent implements OnInit {
   offlineLink?: string;
   iconOfflineColor?: string;
   iconOnlineColor?: string;
+  textOfflineColor?: string;
+  textOnlineColor?: string;
   iconPosition?: string;
-  iconSize?: string;
-  showPresence = true;
-  tooltipContent = '<div>Questions? Click to chat with us.</div>';
+  proactiveChat = false;
+  proactiveDelay?: number;
 
   constructor(
     private elRef: ElementRef,
@@ -80,18 +82,24 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('offlineLink');
     this.useModuleParameter('iconOfflineColor');
     this.useModuleParameter('iconOnlineColor');
+    this.useModuleParameter('textOfflineColor');
+    this.useModuleParameter('textOnlineColor');
     this.useModuleParameter('iconPosition');
-    this.useModuleParameter('iconSize');
-    this.useModuleParameter('showPresence');
-    this.useModuleParameter('tooltipContent');
+    this.useModuleParameter('proactiveChat');
+    this.useModuleParameter('proactiveDelay');
 
     // Static data for testing
     this.queueName = "algonquin";
     this.snippetId = "1555";
     this.iconOnlineColor = "#D4DF38";
-    this.iconOfflineColor = "#454546";
+    //this.iconOfflineColor = "#454546";
+    this.textOnlineColor = "#000000";
+    //this.textOfflineColor = "#FFFFFF";
     this.server = "ca.libraryh3lp.com";
     this.offlineLink = "https://library.centennialcollege.ca/help-services/research-help/ask-the-library/";
+    this.iconPosition = "20%";
+    this.proactiveChat = false;
+    this.proactiveDelay = 5;
 
     if (this.queueName) {
       this.checkAvailability();
@@ -101,6 +109,8 @@ export class Libraryh3lpComponent implements OnInit {
     if (this.snippetId) {
       this.loadSnippet(this.snippetId);
     }
+
+    this.scheduleProactiveChat();
   }
 
   ngOnDestroy() {
@@ -109,6 +119,25 @@ export class Libraryh3lpComponent implements OnInit {
     if (this.availabilityIntervalId) {
       clearInterval(this.availabilityIntervalId);
     }
+
+    if (this.proactiveChatTimeoutId) {
+      clearTimeout(this.proactiveChatTimeoutId);
+    }
+  }
+
+  scheduleProactiveChat() {
+    if (!this.proactiveChat || this.showChat) {
+      return;
+    }
+
+    const delaySeconds = Number(this.proactiveDelay ?? 0);
+    const delayMs = Math.max(0, delaySeconds) * 1000;
+
+    this.proactiveChatTimeoutId = setTimeout(() => {
+      if (this.proactiveChat && !this.showChat) {
+        this.toggleChatTab();
+      }
+    }, delayMs);
   }
 
   checkAvailability = () => {
@@ -123,7 +152,7 @@ export class Libraryh3lpComponent implements OnInit {
               this.chatAvailability = resource.show;
               this.chatOnline = (this.chatAvailability === 'available' || this.chatAvailability === 'chat');
               // for testing
-              //this.chatOnline = true;
+              //this.chatOnline = false;
             }
           });
         },
@@ -138,7 +167,7 @@ export class Libraryh3lpComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {
     const clickedInside = this.elRef.nativeElement.contains(event.target);
-    if (!clickedInside && this.showChat && !this.chatOnline) {
+    if (!clickedInside && this.showChat) {
       this.toggleChatTab(event);
     }
   }
@@ -180,7 +209,12 @@ export class Libraryh3lpComponent implements OnInit {
   tabColor = () =>
     this.chatOnline
       ? (this.iconOnlineColor || 'var(--sys-primary)')
-      : (this.iconOfflineColor || 'var(--sys-primary)');
+      : (this.iconOfflineColor || 'var(--sys-surface-dim)');
+
+  textColor = () =>
+    this.chatOnline
+      ? (this.textOnlineColor || 'var(--sys-on-primary)')
+      : (this.textOfflineColor || 'var(--sys-on-surface)');
 
   openOfflineLink = (event: Event) => {
     event.preventDefault();
@@ -195,7 +229,7 @@ export class Libraryh3lpComponent implements OnInit {
 
   presenceDotUrl = () => `https://${this.server}/presence/image/flat-lang-neutral/${this.chatAvailability}`
 
-  toggleChatTab = (event: Event) => {
+  toggleChatTab = (event?: Event) => {
     if (event) {
       event.preventDefault();
       event.stopPropagation();

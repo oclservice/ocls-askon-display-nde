@@ -1,0 +1,13 @@
+{
+        "queueName": "algonquin",
+        "snippetId": "1555",
+		"iconOnlineColor": "--sys-primary",
+		"iconOfflineColor": "--sys-surface-dim",
+		"textOnlineColor": "--sys-on-primary",
+		"textOfflineColor": "--sys-on-surface",
+		"iconPosition": "20%",
+		"proactiveChat": false,
+		"proactiveDelay": 10,
+        "server": "ca.libraryh3lp.com",
+		"offlineLink": "https://library.centennialcollege.ca/help-services/research-help/ask-the-library/"
+}
