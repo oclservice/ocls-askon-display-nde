@@ -60,10 +60,53 @@ export class Libraryh3lpComponent implements OnInit {
     this[key] = value;
   }
 
+  private normalizeBoolean(value: unknown, fallback = false): boolean {
+    if (typeof value === 'boolean') {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const normalized = value.trim().toLowerCase();
+
+      if (normalized === 'true') {
+        return true;
+      }
+
+      if (normalized === 'false') {
+        return false;
+      }
+    }
+
+    return fallback;
+  }
+
+  private normalizeNumber(value: unknown, fallback = 0): number {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const parsed = Number(value.trim());
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+
+    return fallback;
+  }
+
   useModuleParameter<K extends keyof this>(parameterName: K): void {
-    const value = (this.moduleParams as Partial<Libraryh3lpComponent> | null)?.[
+    let value = (this.moduleParams as Partial<Libraryh3lpComponent> | null)?.[
       parameterName as keyof Libraryh3lpComponent
-    ];
+    ] as unknown;
+
+    if (parameterName === 'proactiveChat') {
+      value = this.normalizeBoolean(value, false);
+    }
+
+    if (parameterName === 'proactiveDelay') {
+      value = this.normalizeNumber(value, 0);
+    }
 
     if (value !== undefined) {
       this.setParam(parameterName, value as this[K]);
@@ -87,19 +130,6 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('iconPosition');
     this.useModuleParameter('proactiveChat');
     this.useModuleParameter('proactiveDelay');
-
-    // Static data for testing
-    this.queueName = "algonquin";
-    this.snippetId = "1555";
-    this.iconOnlineColor = "#D4DF38";
-    //this.iconOfflineColor = "#454546";
-    this.textOnlineColor = "#000000";
-    //this.textOfflineColor = "#FFFFFF";
-    this.server = "ca.libraryh3lp.com";
-    this.offlineLink = "https://library.centennialcollege.ca/help-services/research-help/ask-the-library/";
-    this.iconPosition = "20%";
-    this.proactiveChat = false;
-    this.proactiveDelay = 5;
 
     if (this.queueName) {
       this.checkAvailability();
@@ -135,6 +165,7 @@ export class Libraryh3lpComponent implements OnInit {
 
     this.proactiveChatTimeoutId = setTimeout(() => {
       if (this.proactiveChat && !this.showChat) {
+        console.log('libraryh3lp (askON): proactive chat triggered');
         this.toggleChatTab();
       }
     }, delayMs);

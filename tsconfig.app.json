@@ -6,8 +6,7 @@
   },
   "files": [
     "src/main.ts",
-    "src/bootstrap.ts",
-    "src/bootstrapNubGames-LibraryH3lp.ts"
+    "src/bootstrapoclsaskondisplay.ts"
   ],
   "include": [
     "src/**/*.d.ts"
