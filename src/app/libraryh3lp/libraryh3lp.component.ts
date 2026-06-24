@@ -25,8 +25,8 @@ export class Libraryh3lpComponent implements OnInit {
   // Internal recordkeeping
   availabilityIntervalId?: ReturnType<typeof setInterval>;
   proactiveChatTimeoutId?: ReturnType<typeof setTimeout>;
-  chatAvailability = 'unavailable';
   chatOnline = false;
+  proactiveChatOnline = false;
   hoverTooltip = false;
   mouseDown = false;
   showChat = false;
@@ -137,16 +137,17 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('queueNameProactive');
 
     if (this.queueName) {
-      this.checkAvailability();
-      this.availabilityIntervalId = setInterval(this.checkAvailability, 5*1000);
+      this.checkAvailability(this.queueName, (online) => this.chatOnline = online);
+      this.availabilityIntervalId = setInterval(() => this.checkAvailability(this.queueName!, (online) => this.chatOnline = online), 5*1000);
     }
 
     if (this.snippetId) {
       this.loadSnippet(this.snippetId);
     }
 
-    if (this.snippetIdProactive) {
+    if (this.proactiveChat && this.queueNameProactive && this.snippetIdProactive) {
       this.loadSnippet(this.snippetIdProactive);
+      this.checkAvailability(this.queueNameProactive, (online) => this.proactiveChatOnline = online); 
       this.scheduleProactiveChat();
     }
 
@@ -165,7 +166,7 @@ export class Libraryh3lpComponent implements OnInit {
   }
 
   scheduleProactiveChat() {
-    if (!this.proactiveChat || this.showProactiveChat) {
+    if (!this.proactiveChat || this.showProactiveChat || !this.proactiveChatOnline) {
       return;
     }
 
@@ -180,19 +181,17 @@ export class Libraryh3lpComponent implements OnInit {
     }, delayMs);
   }
 
-  checkAvailability = () => {
-    const url = `https://${this.server}/presence/jid/${this.queueName}/chat.${this.server}/js`;
+  checkAvailability = (queueName: string, onResult: (online: boolean) => void) => {
+    const url = `https://${this.server}/presence/jid/${queueName}/chat.${this.server}/js`;
     this.http
       .jsonp(url, 'cb')
       .subscribe({
         next: (_) => {
           this.zone.run(() => {
             for (let idx = 0; idx < jabber_resources.length; ++idx) {
-              const resource = jabber_resources[idx];
-              this.chatAvailability = resource.show;
-              this.chatOnline = (this.chatAvailability === 'available' || this.chatAvailability === 'chat');
-              // for testing
-              //this.chatOnline = false;
+              const availability = jabber_resources[idx].show;
+              onResult(availability === 'available' || availability === 'chat');
+              console.log(`libraryh3lp (askON): checkAvailability for queue ${queueName} returned ${availability}`);
             }
           });
         },

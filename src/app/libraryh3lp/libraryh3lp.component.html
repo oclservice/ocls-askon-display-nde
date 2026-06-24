@@ -17,10 +17,17 @@
 
 <div class="ocls-proactive-chat-widget">
   <header aria-labelled-by="lh3-proactive-chat-button" class="lh3-proactive-chat-header"></header>
-  <div class="lh3-proactive-chat-frame-wrap" cdkDrag [hidden]="!showProactiveChat" [style.border-color]="tabColor()">
-  Need research help? Chat with askON live.
-  <div class="ocls-proactive-buttons">
-    <button (click)="loadProactiveChat()">Click to chat</button>
-    <button (click)="toggleProactiveChatTab($event)">No thanks</button>
+  <div class="ocls-proactive-chat-frame-wrap" cdkDrag [hidden]="!showProactiveChat">
+    <div class="lh3-close-chat-bar" cdkDragHandle>
+      <p>Online Research Help</p>
+      <button type="button" class="lh3-close-chat" (click)="toggleProactiveChatTab($event)" (touchend)="toggleProactiveChatTab($event)" aria-label="Close chat">&times;</button>
+    </div>
+    <div class="ocls-proactive-chat-content">
+      <p>Need research help? Chat with askON live.</p>
+      <div class="ocls-proactive-buttons">
+        <button (click)="loadProactiveChat()">Click to chat</button>
+        <button (click)="toggleProactiveChatTab($event)">No thanks</button>
+      </div>
   </div>
   </div>
+</div>

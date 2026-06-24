@@ -129,15 +129,27 @@ button.lh3-chat-button svg {
   z-index: 1001;
 }
 
-.lh3-proactive-chat-frame-wrap {
+.ocls-proactive-chat-frame-wrap {
   background-color: var(--sys-surface);
   border: 1px solid var(--sys-primary);
   border-radius: 10px;
   color: var(--sys-on-surface);
   max-height: 75vh;
   overflow: hidden;
-  padding: 15px;
   width: 250px;
+}
+
+.ocls-proactive-chat-frame-wrap > .lh3-close-chat-bar {
+  align-items: center;
+  display: flex;
+  font-size: 15px;
+  justify-content: space-between;
+
+  p { margin: 0; }
+}
+
+.ocls-proactive-chat-content {
+  padding: 15px;
 }
 
 .ocls-proactive-buttons {
