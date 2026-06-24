@@ -6,7 +6,7 @@
   },
   "files": [
     "src/main.ts",
-    "src/bootstrapoclsaskondisplay.ts"
+    "src/bootstrap.ts"
   ],
   "include": [
     "src/**/*.d.ts"

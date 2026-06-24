@@ -121,6 +121,43 @@ button.lh3-chat-button svg {
   font-size: 1.5rem;
 }
 
+.ocls-proactive-chat-widget {
+  position: fixed;
+  top: 90%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}
+
+.lh3-proactive-chat-frame-wrap {
+  background-color: var(--sys-surface);
+  border: 1px solid var(--sys-primary);
+  border-radius: 10px;
+  color: var(--sys-on-surface);
+  max-height: 75vh;
+  overflow: hidden;
+  padding: 15px;
+  width: 250px;
+}
+
+.ocls-proactive-buttons {
+  display:flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ocls-proactive-buttons > button {
+  padding: 4px 16px;
+  border: 1px solid var(--sys-primary);
+  color: var(--sys-primary);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+
 @media (max-width: 640px) {
   .lh3-chat-widget {
     left: 8px;

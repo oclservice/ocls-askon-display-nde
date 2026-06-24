@@ -14,3 +14,13 @@
     <div class="needs-js"></div>
   </div>
 </div>
+
+<div class="ocls-proactive-chat-widget">
+  <header aria-labelled-by="lh3-proactive-chat-button" class="lh3-proactive-chat-header"></header>
+  <div class="lh3-proactive-chat-frame-wrap" cdkDrag [hidden]="!showProactiveChat" [style.border-color]="tabColor()">
+  Need research help? Chat with askON live.
+  <div class="ocls-proactive-buttons">
+    <button (click)="loadProactiveChat()">Click to chat</button>
+    <button (click)="toggleProactiveChatTab($event)">No thanks</button>
+  </div>
+  </div>

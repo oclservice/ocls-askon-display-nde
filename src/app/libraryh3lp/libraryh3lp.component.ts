@@ -30,6 +30,7 @@ export class Libraryh3lpComponent implements OnInit {
   hoverTooltip = false;
   mouseDown = false;
   showChat = false;
+  showProactiveChat = false;
 
   // Chat parameters
   queueName?: string;
@@ -45,6 +46,8 @@ export class Libraryh3lpComponent implements OnInit {
   iconPosition?: string;
   proactiveChat = false;
   proactiveDelay?: number;
+  snippetIdProactive?: string;
+  queueNameProactive?: string;
 
   constructor(
     private elRef: ElementRef,
@@ -130,6 +133,8 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('iconPosition');
     this.useModuleParameter('proactiveChat');
     this.useModuleParameter('proactiveDelay');
+    this.useModuleParameter('snippetIdProactive');
+    this.useModuleParameter('queueNameProactive');
 
     if (this.queueName) {
       this.checkAvailability();
@@ -140,7 +145,11 @@ export class Libraryh3lpComponent implements OnInit {
       this.loadSnippet(this.snippetId);
     }
 
-    this.scheduleProactiveChat();
+    if (this.snippetIdProactive) {
+      this.loadSnippet(this.snippetIdProactive);
+      this.scheduleProactiveChat();
+    }
+
   }
 
   ngOnDestroy() {
@@ -156,7 +165,7 @@ export class Libraryh3lpComponent implements OnInit {
   }
 
   scheduleProactiveChat() {
-    if (!this.proactiveChat || this.showChat) {
+    if (!this.proactiveChat || this.showProactiveChat) {
       return;
     }
 
@@ -164,9 +173,9 @@ export class Libraryh3lpComponent implements OnInit {
     const delayMs = Math.max(0, delaySeconds) * 1000;
 
     this.proactiveChatTimeoutId = setTimeout(() => {
-      if (this.proactiveChat && !this.showChat) {
+      if (this.proactiveChat) {
         console.log('libraryh3lp (askON): proactive chat triggered');
-        this.toggleChatTab();
+        this.toggleProactiveChatTab();
       }
     }, delayMs);
   }
@@ -201,6 +210,10 @@ export class Libraryh3lpComponent implements OnInit {
     if (!clickedInside && this.showChat) {
       this.toggleChatTab(event);
     }
+    const proactiveFrame = this.elRef.nativeElement.querySelector('.lh3-proactive-chat-frame-wrap');
+    if (this.showProactiveChat && !proactiveFrame?.contains(event.target as Node)) {
+      this.showProactiveChat = false;
+    }
   }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -226,6 +239,12 @@ export class Libraryh3lpComponent implements OnInit {
     script.src = src;
     script.async = true;
     document.body.appendChild(script);
+  }
+
+  loadProactiveChat(): void {
+    console.log('libraryh3lp (askON): loadProactiveChat');
+    window.open(`https://${this.server}/chat/${this.queueNameProactive}@chat.${this.server}?skin=16499`, 'askON Tell Us!', 'width=400,height=600,noopener,noreferrer');
+    this.toggleProactiveChatTab();
   }
 
   mouseOverChatTab = () => {
@@ -258,8 +277,6 @@ export class Libraryh3lpComponent implements OnInit {
     return false;
   };
 
-  presenceDotUrl = () => `https://${this.server}/presence/image/flat-lang-neutral/${this.chatAvailability}`
-
   toggleChatTab = (event?: Event) => {
     if (event) {
       event.preventDefault();
@@ -274,4 +291,20 @@ export class Libraryh3lpComponent implements OnInit {
 
     return false;
   };
+
+  toggleProactiveChatTab = (event?: Event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else if (this.showChat) {
+      // Clicked a toggle somewhere from page, but chat is already open.
+      return false;
+    }
+
+    this.hoverTooltip = false;
+    this.showProactiveChat = !this.showProactiveChat;
+
+    return false;
+  };
+
 }
