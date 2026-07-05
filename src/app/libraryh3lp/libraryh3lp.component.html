@@ -3,7 +3,7 @@
     @if (!showChat) {
       <button id="lh3-chat-button" class="lh3-chat-button" (click)="chatOnline ? toggleChatTab($event) : openOfflineLink($event)" (mouseover)="mouseOverChatTab()" (mouseout)="mouseOutChatTab()" (touchend)="chatOnline ? toggleChatTab($event) : openOfflineLink($event)" [attr.aria-label]="chatOnline ? 'Open chat' : 'Open help link'" [ngStyle]="{'background-color': tabColor(), 'color': textColor(), 'border-color': tabColor()}">
         <span class="lh3-chat-label">{{ chatOnline ? 'Click to chat' : 'Contact us' }}</span>
-        <img class="lh3-tab-icon" src="assets/icons/askon_small_chat_bubble_white.png" alt="chat bubble" aria-hidden="true" />
+        <span class="lh3-tab-icon" aria-hidden="true"></span>
       </button>
     }
   </header>

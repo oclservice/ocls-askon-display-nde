@@ -61,8 +61,11 @@ button.lh3-chat-button {
 }
 
 .lh3-tab-icon {
+  background-color: currentColor;
   display: inline-block;
   height: 18px;
+  -webkit-mask: url('/assets/icons/askon_chat_bubble.svg') center / contain no-repeat;
+  mask: url('/assets/icons/askon_chat_bubble.svg') center / contain no-repeat;
   width: 18px;
 }
 
@@ -101,6 +104,7 @@ button.lh3-chat-button svg {
   min-width: min(95vw, 340px);
   overflow: hidden;
   width: min(95vw, 380px);
+  line-height: 0;
 }
 
 .lh3-close-chat-bar {
