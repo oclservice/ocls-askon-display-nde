@@ -48,6 +48,7 @@ export class Libraryh3lpComponent implements OnInit {
   proactiveDelay?: number;
   snippetIdProactive?: string;
   queueNameProactive?: string;
+  forceOnline = false;
 
   constructor(
     private elRef: ElementRef,
@@ -135,6 +136,7 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('proactiveDelay');
     this.useModuleParameter('snippetIdProactive');
     this.useModuleParameter('queueNameProactive');
+    this.useModuleParameter('forceOnline');
 
     if (this.queueName) {
       this.checkAvailability(this.queueName, (online) => this.chatOnline = online);
@@ -182,6 +184,12 @@ export class Libraryh3lpComponent implements OnInit {
   }
 
   checkAvailability = (queueName: string, onResult: (online: boolean) => void) => {
+    if (this.forceOnline) {
+      onResult(true);
+      console.log(`libraryh3lp (askON): checkAvailability for queue ${queueName} forced to available (test mode)`);
+      return;
+    }
+
     const url = `https://${this.server}/presence/jid/${queueName}/chat.${this.server}/js`;
     this.http
       .jsonp(url, 'cb')

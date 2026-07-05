@@ -1,6 +1,7 @@
 {
 	"queueName": "your_queue_name",
 	"snippetId": "your_snippet_id",
+	"proactiveSnippetId": "your_snippet_id",
 	"iconOnlineColor": "--sys-primary",
 	"iconOfflineColor": "--sys-surface-dim",
 	"textOnlineColor": "--sys-on-primary",
