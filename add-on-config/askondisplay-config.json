@@ -1,14 +1,16 @@
 {
 	"queueName": "your_queue_name",
 	"snippetId": "your_snippet_id",
-	"proactiveSnippetId": "your_snippet_id",
+	"queueNameProactive": "your_queue_name_proactive",
+	"snippetIdProactive": "your_snippet_id_proactive",
+	"skinIdProactive": "your_skin_id_proactive",
+	"proactiveChat": false,
+	"proactiveDelay": 10,
 	"iconOnlineColor": "--sys-primary",
 	"iconOfflineColor": "--sys-surface-dim",
 	"textOnlineColor": "--sys-on-primary",
 	"textOfflineColor": "--sys-on-surface",
 	"iconPosition": "20%",
-	"proactiveChat": false,
-	"proactiveDelay": 10,
 	"server": "ca.libraryh3lp.com",
 	"offlineLink": "your-offline-link"
 }

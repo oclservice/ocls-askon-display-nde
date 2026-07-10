@@ -48,6 +48,7 @@ export class Libraryh3lpComponent implements OnInit {
   proactiveDelay?: number;
   snippetIdProactive?: string;
   queueNameProactive?: string;
+  skinIdProactive?: string;
   forceOnline = false;
 
   constructor(
@@ -136,6 +137,7 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('proactiveDelay');
     this.useModuleParameter('snippetIdProactive');
     this.useModuleParameter('queueNameProactive');
+    this.useModuleParameter('skinIdProactive');
     this.useModuleParameter('forceOnline');
 
     if (this.queueName) {
@@ -147,7 +149,7 @@ export class Libraryh3lpComponent implements OnInit {
       this.loadSnippet(this.snippetId);
     }
 
-    if (this.proactiveChat && this.queueNameProactive && this.snippetIdProactive) {
+    if (this.proactiveChat && this.queueNameProactive && this.snippetIdProactive && this.skinIdProactive) {
       this.loadSnippet(this.snippetIdProactive);
       this.checkAvailability(this.queueNameProactive, (online) => this.proactiveChatOnline = online); 
       this.scheduleProactiveChat();
@@ -250,7 +252,7 @@ export class Libraryh3lpComponent implements OnInit {
 
   loadProactiveChat(): void {
     console.log('libraryh3lp (askON): loadProactiveChat');
-    window.open(`https://${this.server}/chat/${this.queueNameProactive}@chat.${this.server}?skin=16499`, 'askON Tell Us!', 'width=400,height=600,noopener,noreferrer');
+    window.open(`https://${this.server}/chat/${this.queueNameProactive}@chat.${this.server}?skin=${this.skinIdProactive}`, 'askON Tell Us!', 'width=400,height=600,noopener,noreferrer');
     this.toggleProactiveChatTab();
   }
 
