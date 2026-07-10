@@ -24,8 +24,8 @@ Property | Effect
 `iconOfflineColor` | Custom tab colour when chat is offline. Keep the default value `--sys-surface-dim` to use theme colours.
 `textOnlineColor` | Custom tab text colour when chat is online. Keep the default value `--sys-on-primary` to use theme colours.
 `textOfflineColor` | Custom tab text colour when chat is offline. Keep the default value `--sys-on-surface` to use theme colours.
-`iconPosition` | : Use this parameter to move the chat tab left or right on the page bottom via a percentage value (e.g. "50%") or a specific pixel value (e.g. "200px").
-`server` | The domain of the LibraryH3lp server where your subscription resides. For OCLS colleges, this is `ca.libraryh3lp.com`.
+`iconPosition` | Use this parameter to move the chat tab left or right on the page bottom via a percentage value (e.g. "50%") or a specific pixel value (e.g. "200px").
+`server` | The domain of the LibraryH3lp server where your subscription resides. askON members, use `ca.libraryh3lp.com`.
 `offlineLink` | Set the URL to which users are redirected when they click on the chat tab outside of chat hours.
 
 Refer to [the official Libraryh3lp documentation](https://ask.libraryh3lp.com/questions/33711#primove-nde) for more details.
