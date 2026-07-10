@@ -65,7 +65,7 @@ Select **Add row** and fill in the fields as follows:
 
 Click save and make sure the add-on is enabled on the list:
 
-ADD SCREENSHOT
+![Screenshot of enabled ann-on](readme-files/enabled-addon.png)
 
 Refer to the [Exlibris official add-on documentation](https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/020Primo_VE/Primo_VE_(English)/120Other_Configurations/Managing_Add-Ons_for_the_NDE_UI)
 for more information.

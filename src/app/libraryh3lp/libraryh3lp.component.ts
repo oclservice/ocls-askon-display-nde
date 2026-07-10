@@ -150,7 +150,6 @@ export class Libraryh3lpComponent implements OnInit {
     }
 
     if (this.proactiveChat && this.queueNameProactive && this.snippetIdProactive && this.skinIdProactive) {
-      this.loadSnippet(this.snippetIdProactive);
       this.checkAvailability(this.queueNameProactive, (online) => this.proactiveChatOnline = online); 
       this.scheduleProactiveChat();
     }
