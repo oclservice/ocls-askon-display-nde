@@ -118,7 +118,7 @@ export class Libraryh3lpComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('libraryh3lp (askON): ngOnInit');
 
     // Chat basics
@@ -150,7 +150,7 @@ export class Libraryh3lpComponent implements OnInit {
     }
 
     if (this.proactiveChat && this.queueNameProactive && this.snippetIdProactive && this.skinIdProactive) {
-      this.checkAvailability(this.queueNameProactive, (online) => this.proactiveChatOnline = online); 
+      await this.checkAvailability(this.queueNameProactive, (online) => this.proactiveChatOnline = online);
       this.scheduleProactiveChat();
     }
 
@@ -184,12 +184,14 @@ export class Libraryh3lpComponent implements OnInit {
     }, delayMs);
   }
 
-  checkAvailability = (queueName: string, onResult: (online: boolean) => void) => {
-    if (this.forceOnline) {
-      onResult(true);
-      console.log(`libraryh3lp (askON): checkAvailability for queue ${queueName} forced to available (test mode)`);
-      return;
-    }
+  checkAvailability = (queueName: string, onResult: (online: boolean) => void): Promise<void> => {
+    return new Promise((resolve) => {
+      if (this.forceOnline) {
+        onResult(true);
+        console.log(`libraryh3lp (askON): checkAvailability for queue ${queueName} forced to available (test mode)`);
+        resolve();
+        return;
+      }
 
     const url = `https://${this.server}/presence/jid/${queueName}/chat.${this.server}/js`;
     this.http
@@ -202,14 +204,17 @@ export class Libraryh3lpComponent implements OnInit {
               onResult(availability === 'available' || availability === 'chat');
               console.log(`libraryh3lp (askON): checkAvailability for queue ${queueName} returned ${availability}`);
             }
+            resolve();
           });
         },
         error: (_) => {
           if (this.availabilityIntervalId) {
             clearInterval(this.availabilityIntervalId);
           }
+          resolve();
         },
       });
+    });
   }
 
   @HostListener('document:click', ['$event'])
