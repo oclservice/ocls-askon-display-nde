@@ -24,7 +24,7 @@ Property | Effect
 `iconOfflineColor` | Custom tab colour when chat is offline. Keep the default value `--sys-surface-dim` to use theme colours.
 `textOnlineColor` | Custom tab text colour when chat is online. Keep the default value `--sys-on-primary` to use theme colours.
 `textOfflineColor` | Custom tab text colour when chat is offline. Keep the default value `--sys-on-surface` to use theme colours.
-`iconPosition` | Use this parameter to move the chat tab left or right on the page bottom via a percentage value (e.g. "50%") or a specific pixel value (e.g. "200px").
+`iconPosition` | Use this parameter to move the chat tab relative to the **bottom right** corner of the page via a percentage value (e.g. "50%") or a specific pixel value (e.g. "200px").
 `server` | The domain of the LibraryH3lp server where your subscription resides. askON members, use `ca.libraryh3lp.com`.
 `offlineLink` | Set the URL to which users are redirected when they click on the chat tab outside of chat hours.
 
@@ -69,6 +69,42 @@ Click save and make sure the add-on is enabled on the list:
 
 Refer to the [Exlibris official add-on documentation](https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/020Primo_VE/Primo_VE_(English)/120Other_Configurations/Managing_Add-Ons_for_the_NDE_UI)
 for more information.
+
+## CSS customization
+
+To customize the appearance of the AskON widget, you can override 
+[any of the add-on CSS classes](src/app/libraryh3lp/libraryh3lp.component.scss) 
+inside a Custom Package. See below for a few examples.
+
+### Change the font of the askON tab
+
+Add the following rule to your `custom.css` file:
+
+```.css
+.lh3-chat-label {
+	font-family: "Times New Roman", Times, serif;
+}
+```
+
+### Rotate the askON tab against the right-side border of the page
+
+Add the following rule to your `custom.css` file:
+
+```.css
+.lh3-chat-widget {
+	right: 0px;
+	bottom: 50%; // Adjust vertical position according to your needs.
+}
+
+.lh3-chat-header {
+	transform: matrix(-0.00,-1.00,1.00,-0.00,50,0);
+}
+
+.lh3-chat-frame-wrap {
+	border: 1px solid var(--sys-primary);
+}
+```
+Also be sure to set the `iconPosition` value to zero in your config file.
 
 ## Add-on development
 
