@@ -72,7 +72,7 @@ for more information.
 
 ## CSS customization
 
-To customize the appearance of the AskON widget, you can override 
+To customize the appearance of the askON widget, you can override 
 [any of the add-on CSS classes](src/app/libraryh3lp/libraryh3lp.component.scss) 
 inside a Custom Package. See below for a few examples.
 
