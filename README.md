@@ -99,7 +99,7 @@ Add the following rule to your `custom.css` file:
 }
 
 .lh3-chat-header {
-	transform: matrix(-0.00,-1.00,1.00,-0.00,50,0);
+	transform: matrix(-0.00,-1.00,1.00,-0.00,50,-100);
 }
 
 .lh3-chat-frame-wrap {
