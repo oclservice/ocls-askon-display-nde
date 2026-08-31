@@ -50,6 +50,7 @@ export class Libraryh3lpComponent implements OnInit {
   queueNameProactive?: string;
   skinIdProactive?: string;
   forceOnline = false;
+  tooltipText?: string;
 
   constructor(
     private elRef: ElementRef,
@@ -139,6 +140,7 @@ export class Libraryh3lpComponent implements OnInit {
     this.useModuleParameter('queueNameProactive');
     this.useModuleParameter('skinIdProactive');
     this.useModuleParameter('forceOnline');
+    this.useModuleParameter('tooltipText');
 
     if (this.queueName) {
       this.checkAvailability(this.queueName, (online) => this.chatOnline = online);
@@ -261,7 +263,7 @@ export class Libraryh3lpComponent implements OnInit {
   }
 
   mouseOverChatTab = () => {
-    this.hoverTooltip = (this.chatOnline && !this.showChat) ? true : false;
+    this.hoverTooltip = (this.chatOnline && !this.showChat && this.tooltipText) ? true : false;
     return false;
   };
   mouseOutChatTab = () => {

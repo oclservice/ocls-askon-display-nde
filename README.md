@@ -27,6 +27,7 @@ Property | Effect
 `iconPosition` | Use this parameter to move the chat tab relative to the **bottom right** corner of the page via a percentage value (e.g. "50%") or a specific pixel value (e.g. "200px").
 `server` | The domain of the LibraryH3lp server where your subscription resides. askON members, use `ca.libraryh3lp.com`.
 `offlineLink` | Set the URL to which users are redirected when they click on the chat tab outside of chat hours.
+`tooltipText` | If provided, this text will appear when users hover on the chat tab. Leave empty or omit to switch off the tooltip functionality.
 
 Refer to [the official Libraryh3lp documentation](https://ask.libraryh3lp.com/questions/33711#primove-nde) for more details.
 
@@ -47,7 +48,8 @@ Your file should look something like this:
 	"textOfflineColor": "--sys-on-surface",
 	"iconPosition": "20%",
 	"server": "ca.libraryh3lp.com",
-	"offlineLink": "https://library.collegename.ca/contact-us"
+	"offlineLink": "https://library.collegename.ca/contact-us",
+	"tooltipText": "Need help? Chat with us."
 }
 ```
 

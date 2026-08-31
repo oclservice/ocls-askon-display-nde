@@ -1,6 +1,12 @@
 <div class="lh3-chat-widget" [style.left]="iconPosition ? 'auto' : null" [style.right]="iconPosition || null">
   <div aria-labelled-by="lh3-chat-button" class="lh3-chat-header">
     @if (!showChat) {
+      @if (hoverTooltip) {
+        <div class="lh3-chat-tooltip" role="tooltip" aria-live="polite">
+          <span class="lh3-chat-tooltip-text">{{ tooltipText }}</span>
+          <span class="lh3-chat-tooltip-arrow" aria-hidden="true"></span>
+        </div>
+      }
       <button id="lh3-chat-button" class="lh3-chat-button" (click)="chatOnline ? toggleChatTab($event) : openOfflineLink($event)" (mouseover)="mouseOverChatTab()" (mouseout)="mouseOutChatTab()" (touchend)="chatOnline ? toggleChatTab($event) : openOfflineLink($event)" [attr.aria-label]="chatOnline ? 'Open chat' : 'Open help link'" [ngStyle]="{'background-color': tabColor(), 'color': textColor(), 'border-color': tabColor()}">
         <span class="lh3-chat-label">{{ chatOnline ? 'Click to chat' : 'Contact us' }}</span>
         <svg class="lh3-tab-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" height="18" width="18">

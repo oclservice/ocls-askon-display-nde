@@ -12,5 +12,6 @@
 	"textOfflineColor": "--sys-on-surface",
 	"iconPosition": "20%",
 	"server": "ca.libraryh3lp.com",
-	"offlineLink": "your-offline-link"
+	"offlineLink": "your-offline-link",
+	"tooltipText": "your-tooltip-text"
 }
