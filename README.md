@@ -49,7 +49,7 @@ Your file should look something like this:
 	"iconPosition": "20%",
 	"server": "ca.libraryh3lp.com",
 	"offlineLink": "https://library.collegename.ca/contact-us",
-	"tooltipText": "Need help? Chat with us."
+	"tooltipText": "Click to chat with a LIVE library professional."
 }
 ```
 
